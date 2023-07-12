@@ -1,4 +1,17 @@
+spring:
+  profiles:
+    active: local
+---
 server:
   servlet:
     context-path: /learn-kafka/producer
   port: 8093
+spring:
+  config:
+    activate:
+      on-profile: local
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9002,localhost:9093,localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
