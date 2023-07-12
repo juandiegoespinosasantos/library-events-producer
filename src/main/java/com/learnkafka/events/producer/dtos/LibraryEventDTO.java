@@ -1,6 +1,6 @@
-package com.learnkafka.libraryeventsproducer.dtos;
+package com.learnkafka.events.producer.dtos;
 
-import com.learnkafka.libraryeventsproducer.enums.ELibraryEventTypes;
+import com.learnkafka.events.producer.enums.ELibraryEventTypes;
 
 /**
  * @author juandiegoespinosasantos@gmail.com

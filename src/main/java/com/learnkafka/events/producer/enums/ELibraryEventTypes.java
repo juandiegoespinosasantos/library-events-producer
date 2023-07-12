@@ -1,4 +1,4 @@
-package com.learnkafka.libraryeventsproducer.enums;
+package com.learnkafka.events.producer.enums;
 
 /**
  * @author juandiegoespinosasantos@gmail.com

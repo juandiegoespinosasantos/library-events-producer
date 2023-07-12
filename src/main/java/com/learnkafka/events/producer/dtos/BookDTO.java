@@ -1,4 +1,4 @@
-package com.learnkafka.libraryeventsproducer.dtos;
+package com.learnkafka.events.producer.dtos;
 
 /**
  * @author juandiegoespinosasantos@gmail.com
