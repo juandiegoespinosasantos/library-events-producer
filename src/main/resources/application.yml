@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: /learn-kafka/producer
+  port: 8093
