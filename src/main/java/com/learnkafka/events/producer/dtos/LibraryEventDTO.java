@@ -7,7 +7,7 @@ import com.learnkafka.events.producer.enums.ELibraryEventTypes;
  * @version Jul 11, 2023
  * @since 17
  */
-public record LibraryEventDTO(Integer libraryEventId,
-                              ELibraryEventTypes libraryEventType,
+public record LibraryEventDTO(Integer id,
+                              ELibraryEventTypes type,
                               BookDTO book) {
 }
