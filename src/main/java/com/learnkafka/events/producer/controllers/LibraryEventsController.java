@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * @author juandiegoespinosasantos@gmail.com
  * @version Jul 11, 2023
@@ -33,6 +35,25 @@ public class LibraryEventsController {
     public ResponseEntity<LibraryEventDTO> postLibraryEvent(@RequestBody LibraryEventDTO requestBody) {
         log.info("libraryEvent: {}", requestBody);
         producer.sendLibraryEvent(requestBody);
+        log.info("after libraryEvent: {}", requestBody);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestBody);
+    }
+
+    @PostMapping(path = "/2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LibraryEventDTO> postLibraryEvent2(@RequestBody LibraryEventDTO requestBody) throws ExecutionException, InterruptedException {
+        log.info("libraryEvent: {}", requestBody);
+        producer.sendLibraryEvent2(requestBody);
+        log.info("after libraryEvent: {}", requestBody);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestBody);
+    }
+
+    @PostMapping(path = "/3", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LibraryEventDTO> postLibraryEvent3(@RequestBody LibraryEventDTO requestBody) {
+        log.info("libraryEvent: {}", requestBody);
+        producer.sendLibraryEvent3(requestBody);
+        log.info("after libraryEvent: {}", requestBody);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(requestBody);
     }
