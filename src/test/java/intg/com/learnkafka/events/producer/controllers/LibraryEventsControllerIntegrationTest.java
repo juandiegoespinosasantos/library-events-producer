@@ -1,6 +1,5 @@
 package com.learnkafka.events.producer.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.learnkafka.events.producer.dtos.LibraryEventDTO;
 import com.learnkafka.events.producer.util.TestUtil;
@@ -55,7 +54,7 @@ public class LibraryEventsControllerIntegrationTest {
     }
 
     @Test
-    void postLibraryEvent() throws JsonProcessingException {
+    void postLibraryEvent() {
         // Given
         LibraryEventDTO expected = TestUtil.libraryEventRecord();
 
@@ -69,6 +68,36 @@ public class LibraryEventsControllerIntegrationTest {
 
         // Then
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+
+        // Instantiate a consumer
+        // Read the record , assert the count and parse the record and assert on it.
+
+        ConsumerRecords<Integer, String> consumerRecords = KafkaTestUtils.getRecords(consumer);
+
+        Assertions.assertEquals(1, consumerRecords.count());
+        Gson gson = new Gson();
+
+        consumerRecords.forEach(record -> {
+            LibraryEventDTO actual = gson.fromJson(record.value(), LibraryEventDTO.class);
+            Assertions.assertEquals(expected, actual);
+        });
+    }
+
+    @Test
+    void putLibraryEvent() {
+        // Given
+        LibraryEventDTO expected = TestUtil.libraryEventRecordUpdate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("content-type", MediaType.APPLICATION_JSON.toString());
+        HttpEntity<LibraryEventDTO> request = new HttpEntity<>(expected, headers);
+
+        // When
+        ResponseEntity<LibraryEventDTO> responseEntity = restTemplate.exchange("/v1/library-event",
+                HttpMethod.PUT, request, LibraryEventDTO.class);
+
+        // Then
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // Instantiate a consumer
         // Read the record , assert the count and parse the record and assert on it.
